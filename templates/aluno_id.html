@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Aluno</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-5">
+    <h1 class="mb-4">{{ aluno['nome'] }}</h1>
+    <div class="card">
+        <div class="card-body">
+            <p><strong>Idade:</strong> {{ aluno['idade'] }}</p>
+            <p><strong>Data Nascimento:</strong> {{ aluno['data_nascimento'] }}</p>
+            <p><strong>Nota 1 Semestre:</strong> {{ aluno['nota_primeiro_semestre'] }}</p>
+            <p><strong>Nota 2 Semestre:</strong> {{ aluno['nota_segundo_semestre'] }}</p>
+            <p><strong>Turma:</strong> {{ aluno['turma_id'] }}</p>
+            <a href="{{ url_for('alunos.editar_aluno_page', id_aluno=aluno['id']) }}" class="btn btn-primary">Editar</a>
+            <a href="{{ url_for('alunos.get_alunos') }}" class="btn btn-secondary">Voltar à lista</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

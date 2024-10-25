@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atualizar Aluno</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-5">
+  <h1 class="mb-4">Atualizar Aluno</h1>
+  <form action="{{ url_for('alunos.update_aluno', id_aluno=aluno.id) }}" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+    <div class="form-group">
+      <label for="nome">Nome:</label>
+      <input type="text" class="form-control" id="nome" name="nome" value="{{ aluno.nome }}" required>
+    </div>
+
+    <div class="form-group">
+      <label for="idade">Idade:</label>
+      <input type="number" class="form-control" id="idade" name="idade" value="{{ aluno.idade }}" required>
+    </div>
+
+    <div class="form-group">
+      <label for="data_nascimento">Data de Nascimento:</label>
+      <input type="text" class="form-control" id="data_nascimento" name="data_nascimento" value="{{ aluno.data_nascimento }}" required placeholder="dd/mm/yyyy">
+    </div>
+
+    <div class="form-group">
+      <label for="nota_primeiro_semestre">Nota Primeiro Semestre:</label>
+      <input type="number" step="0.1" class="form-control" id="nota_primeiro_semestre" name="nota_primeiro_semestre" value="{{ aluno.nota_primeiro_semestre }}" required>
+    </div>
+
+    <div class="form-group">
+      <label for="nota_segundo_semestre">Nota Segundo Semestre:</label>
+      <input type="number" step="0.1" class="form-control" id="nota_segundo_semestre" name="nota_segundo_semestre" value="{{ aluno.nota_segundo_semestre }}" required>
+    </div>
+
+    <div class="form-group">
+      <label for="turma_id">ID da Turma:</label>
+      <input type="number" class="form-control" id="turma_id" name="turma_id" value="{{ aluno.turma_id }}" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Atualizar</button>
+  </form>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
