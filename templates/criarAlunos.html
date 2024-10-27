@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Aluno</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
+
 <body>
     <div class="container mt-5">
         <h2>Criar Aluno</h2>
@@ -15,12 +17,8 @@
                 <input type="text" class="form-control" id="nome" name="nome" required>
             </div>
             <div class="mb-3">
-                <label for="idade" class="form-label">Idade</label>
-                <input type="number" class="form-control" id="idade" name="idade" required>
-            </div>
-            <div class="mb-3">
                 <label for="data_nascimento" class="form-label">Data de Nascimento (dd/mm/yyyy)</label>
-                <input type="text" class="form-control" id="data_nascimento" name="data_nascimento" placeholder="DD/MM/YYYY" required>
+                <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" placeholder="DD/MM/YYYY" required>
             </div>
             <div class="mb-3">
                 <label for="nota_primeiro_semestre" class="form-label">Nota Primeiro Semestre</label>
@@ -30,9 +28,13 @@
                 <label for="nota_segundo_semestre" class="form-label">Nota Segundo Semestre</label>
                 <input type="number" step="0.01" class="form-control" id="nota_segundo_semestre" name="nota_segundo_semestre" required>
             </div>
-            <div class="mb-3">
-                <label for="turma_id" class="form-label">ID da Turma</label>
-                <input type="number" class="form-control" id="turma_id" name="turma_id" required>
+            <div class="mb-3 form-group">
+                <label for="turma_id">Turmas:</label>
+                <select class="form-control" id="turma_id" name="turma_id" required>
+                    {% for turma in turmas %}
+                        <option value="{{ turma.id }}">{{ turma.materia }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Criar Aluno</button>
             <a href="{{ url_for('alunos.get_alunos') }}" class="btn btn-secondary">Voltar</a>
@@ -41,4 +43,5 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

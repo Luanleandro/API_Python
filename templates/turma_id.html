@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Turma</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-5">
+    <h1>Detalhes da Turma</h1>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">{{ turma['materia'] }}</h5>
+            <p><strong>Professor:</strong> {{ professor.nome }}</p> 
+            <p><strong>Status:</strong> {{ 'Ativo' if turma['ativo'] else 'Inativo' }}</p>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <a href="{{ url_for('turmas.editar_turma_page', id_turma=turma['id']) }}" class="btn btn-primary">Editar</a>
+        <a href="{{ url_for('turmas.get_turmas') }}" class="btn btn-secondary">Voltar à Lista</a>
+    </div>
+</body>
+
+</html>

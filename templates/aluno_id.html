@@ -16,7 +16,8 @@
             <p><strong>Data Nascimento:</strong> {{ aluno['data_nascimento'] }}</p>
             <p><strong>Nota 1 Semestre:</strong> {{ aluno['nota_primeiro_semestre'] }}</p>
             <p><strong>Nota 2 Semestre:</strong> {{ aluno['nota_segundo_semestre'] }}</p>
-            <p><strong>Turma:</strong> {{ aluno['turma_id'] }}</p>
+            <p><strong>Média Final:</strong> {{ aluno['media_final'] }}</p>
+            <p><strong>Turma:</strong> {{ turma.materia }}</p>
             <a href="{{ url_for('alunos.editar_aluno_page', id_aluno=aluno['id']) }}" class="btn btn-primary">Editar</a>
             <a href="{{ url_for('alunos.get_alunos') }}" class="btn btn-secondary">Voltar à lista</a>
         </div>

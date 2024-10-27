@@ -1,7 +1,6 @@
 from turma.turma_model import Turma
-from datetime import datetime
+from datetime import datetime, date
 from config import db
-
 class Aluno(db.Model):
   __tablename__ = "alunos"
    
@@ -13,22 +12,24 @@ class Aluno(db.Model):
   nota_segundo_semestre = db.Column(db.Float, nullable=False)
   media_final = db.Column(db.Float, nullable=False)
   
+  turma = db.relationship("Turma", back_populates="alunos")
   turma_id = db.Column(db.Integer, db.ForeignKey("turmas.id"), nullable=False)
 
-  turma = db.relationship("Turma", back_populates="alunos")
-
-  def __init__(self, nome, idade, data_nascimento, nota_primeiro_semestre, nota_segundo_semestre, turma_id, media_final):
+  def __init__(self, nome, data_nascimento, nota_primeiro_semestre, nota_segundo_semestre, turma_id, media_final):
     self.nome = nome
-    self.idade = idade
     self.data_nascimento = data_nascimento
     self.nota_primeiro_semestre = nota_primeiro_semestre
     self.nota_segundo_semestre = nota_segundo_semestre
     self.turma_id = turma_id
     self.media_final = media_final
+    self.idade = self.calcular_idade()
+
+  def calcular_idade(self):
+    today = date.today()
+    return today.year - self.data_nascimento.year - ((today.month, today.day) < (self.data_nascimento.month, self.data_nascimento.day))
 
   def to_dict(self):  
     return {'id': self.id, 'nome': self.nome, "idade": self.idade, 'data_nascimento': self.data_nascimento.isoformat(), "nota_primeiro_semestre": self.nota_primeiro_semestre, "nota_segundo_semestre": self.nota_segundo_semestre, "turma_id": self.turma_id, "media_final": self.media_final}
-
 class AlunoNaoEncontrado(Exception):
   pass
 
@@ -46,14 +47,13 @@ def listar_alunos():
 def adicionar_aluno(novos_dados):
   novo_aluno = Aluno(
     nome=novos_dados['nome'], 
-    idade=novos_dados['idade'], 
-    data_nascimento= datetime.strptime(novos_dados["data_nascimento"], '%d/%m/%Y').date(), 
+    data_nascimento=novos_dados["data_nascimento"], 
     nota_primeiro_semestre=novos_dados['nota_primeiro_semestre'], 
     nota_segundo_semestre=novos_dados['nota_segundo_semestre'], 
     turma_id=novos_dados['turma_id'], 
-    media_final=novos_dados['media_final'],
+    media_final=(novos_dados['nota_primeiro_semestre'] + novos_dados['nota_segundo_semestre']) / 2,
   )
-
+  
   db.session.add(novo_aluno)
   db.session.commit()
 
@@ -63,12 +63,12 @@ def atualizar_aluno(id_aluno, novos_dados):
     raise AlunoNaoEncontrado
 
   aluno.nome = novos_dados['nome']
-  aluno.idade = novos_dados['idade']
   aluno.data_nascimento = novos_dados['data_nascimento']
   aluno.nota_primeiro_semestre = novos_dados['nota_primeiro_semestre']
   aluno.nota_segundo_semestre = novos_dados['nota_segundo_semestre']
   aluno.media_final = (aluno.nota_primeiro_semestre + aluno.nota_segundo_semestre) / 2
   aluno.turma_id = novos_dados['turma_id']
+  aluno.idade = aluno.calcular_idade()
   
   db.session.commit()
 

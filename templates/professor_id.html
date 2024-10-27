@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ professor.nome }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Detalhes do Professor</h1>
+        <h2>{{ professor.nome }}</h2>
+        <p><strong>Idade:</strong> {{ professor.idade }} anos</p>
+        <p><strong>Matéria:</strong> {{ professor.materia }}</p>
+        <p><strong>Observações:</strong> {{ professor.observacoes if professor.observacoes else 'Nenhuma' }}</p>
+
+        <h3>Turmas Associadas</h3>
+        <ul>
+            {% if professor.turmas %}
+                {% for turma in professor.turmas %}
+                    <li>
+                        <a href="{{ url_for('turmas.get_turma', id_turma=turma.id) }}">
+                            {{ turma.materia }}
+                        </a>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li>Nenhuma turma associada</li>
+            {% endif %}
+        </ul>
+
+        <a href="{{ url_for('professores.get_professores') }}" class="btn btn-primary">Voltar à Lista de Professores</a>
+    </div>
+</body>
+</html>
