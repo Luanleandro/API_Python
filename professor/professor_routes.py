@@ -31,7 +31,8 @@ def create_professor():
     nome = request.form['nome']
     idade = request.form['idade']
     materia = request.form['materia']
-    novo_professor = {'nome': nome, 'idade': int(idade), 'materia': materia}
+    observacoes = request.form['observacoes']
+    novo_professor = {'nome': nome, 'idade': int(idade), 'materia': materia, 'observacoes': observacoes}
     adicionar_professor(novo_professor)
     return redirect(url_for('professores.get_professores'))
 

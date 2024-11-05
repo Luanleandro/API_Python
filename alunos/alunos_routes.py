@@ -66,7 +66,8 @@ def update_aluno(id_aluno):
         try:
             aluno = aluno_por_id(id_aluno)
             if not aluno:
-                return jsonify({'message': 'Aluno não encontrado'}), 404
+                return redirect(url_for('alunos.get_alunos'))
+                
 
             nome = request.form['nome']
             data_nascimento_str = request.form['data_nascimento'] 
@@ -85,7 +86,7 @@ def update_aluno(id_aluno):
             
             return redirect(url_for('alunos.get_aluno', id_aluno=id_aluno))
         except AlunoNaoEncontrado:
-            return jsonify({'message': 'Aluno não encontrado'}), 404
+            return redirect(url_for('alunos.get_alunos')) 
    
 @alunos_blueprint.route('/alunos/delete/<int:id_aluno>', methods=['DELETE','POST'])
 def delete_aluno(id_aluno):

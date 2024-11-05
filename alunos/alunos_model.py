@@ -37,7 +37,7 @@ def aluno_por_id(id_aluno):
   aluno = Aluno.query.get(id_aluno)
 
   if not aluno:
-    raise  AlunoNaoEncontrado(f'Aluno com ID {aluno_id} não encontrado.')
+    raise  AlunoNaoEncontrado(f'Aluno não encontrado.')
   return aluno.to_dict()
 
 def listar_alunos():
@@ -75,7 +75,7 @@ def atualizar_aluno(id_aluno, novos_dados):
 def excluir_aluno(id_aluno):
   aluno = Aluno.query.get(id_aluno)
   if not aluno:
-    raise AlunoNaoEncontrado(f'Aluno com ID {aluno_id} não encontrado.')
+    raise AlunoNaoEncontrado(f'Aluno não encontrado.')
 
   db.session.delete(aluno)
   db.session.commit()
